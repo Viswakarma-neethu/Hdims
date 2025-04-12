@@ -1,0 +1,123 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>HDIMS - Pricing Plans</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Affordable Healthcare Plans" name="keywords">
+    <meta content="Choose the best healthcare package that fits your needs." name="description">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Bootstrap & Main Stylesheet -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+</head>
+
+<body>
+    <!-- Navbar Start -->
+    <div class="container-fluid sticky-top bg-white shadow-sm">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light py-3">
+                <a href="index.html" class="navbar-brand">
+                    <h1 class="m-0 text-primary"><i class="fa fa-clinic-medical me-2"></i>HDIMS</h1>
+                </a>
+            </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+    <!-- Pricing Section Start -->
+    <div class="container py-5">
+        <h1 class="text-center">Choose Your Healthcare Plan</h1>
+        <p class="text-center">Flexible and affordable pricing for all your medical needs.</p>
+        <div class="row text-center">
+            <div class="col-md-4">
+                <div class="card border-primary shadow-sm p-4">
+                    <h3 class="text-primary">Basic Plan</h3>
+                    <h1>$49 <small>/ Year</small></h1>
+                    <p>✔ General Checkups</p>
+                    <p>✔ 24/7 Online Consultation</p>
+                    <p>✔ Emergency Support</p>
+                    <a href="#" class="btn btn-primary">Subscribe Now</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-primary shadow-sm p-4">
+                    <h3 class="text-primary">Advanced Plan</h3>
+                    <h1>$99 <small>/ Year</small></h1>
+                    <p>✔ All Basic Plan Benefits</p>
+                    <p>✔ Specialist Consultation</p>
+                    <p>✔ Laboratory & Diagnostics</p>
+                    <a href="#" class="btn btn-primary">Subscribe Now</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-primary shadow-sm p-4">
+                    <h3 class="text-primary">Premium Plan</h3>
+                    <h1>$199 <small>/ Year</small></h1>
+                    <p>✔ All Advanced Plan Benefits</p>
+                    <p>✔ Surgical Procedures</p>
+                    <p>✔ Home Healthcare Services</p>
+                    <a href="#" class="btn btn-primary">Subscribe Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Pricing Section End -->
+
+    <!-- FAQ Section Start -->
+    <div class="container py-5">
+        <h2 class="text-center">Frequently Asked Questions</h2>
+        <div class="accordion" id="faqAccordion">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                        What services are covered in the Basic Plan?
+                    </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        The Basic Plan includes general checkups, 24/7 online consultation, and emergency support.
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingTwo">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+                        Can I upgrade my plan anytime?
+                    </button>
+                </h2>
+                <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        Yes, you can upgrade your plan anytime by contacting our support team.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- FAQ Section End -->
+
+    <!-- Footer Start -->
+    <footer class="bg-dark text-white text-center py-3">
+        <p class="mb-0">&copy; 2025 HDIMS. All Rights Reserved.</p>
+    </footer>
+    <!-- Footer End -->
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

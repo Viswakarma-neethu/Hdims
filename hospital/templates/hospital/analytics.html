@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<h2 class="text-center mb-4">Analytics Dashboard</h2>
+
+<!-- Chart Config -->
+<div id="chart-config" data-is-admin="{% if is_admin %}true{% else %}false{% endif %}"></div>
+
+<!-- Admin Data Scripts -->
+{% if is_admin %}
+    {{ disease_data|json_script:"disease-data" }}
+    {{ appointment_trend_data|json_script:"appointment-data" }}
+    {{ gender_age_data|json_script:"gender-data" }}
+{% else %}
+    {{ personal_health_trend_data|json_script:"personal-data" }}
+{% endif %}
+
+<!-- Charts Container -->
+<div class="charts-container">
+    {% if is_admin %}
+        <div class="chart-wrapper">
+            <h4>Disease Distribution</h4>
+            <div class="chart-holder">
+                <canvas id="diseaseChart" height="300"></canvas>
+                <div class="chart-loading">Loading disease data...</div>
+            </div>
+        </div>
+
+        <div class="chart-wrapper">
+            <h4>Appointment Trends</h4>
+            <div class="chart-holder">
+                <canvas id="appointmentTrendChart" height="300"></canvas>
+                <div class="chart-loading">Loading appointment data...</div>
+            </div>
+        </div>
+
+        <div class="chart-wrapper">
+            <h4>Gender/Age Distribution</h4>
+            <div class="chart-holder">
+                <canvas id="genderAgeChart" height="300"></canvas>
+                <div class="chart-loading">Loading demographic data...</div>
+            </div>
+        </div>
+
+    {% else %}
+        <div class="chart-wrapper">
+            <h4>Your Health Trends</h4>
+            <div class="chart-holder">
+                <canvas id="personalHealthTrendChart" height="300"></canvas>
+                <div class="chart-loading">Loading your health data...</div>
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+<!-- Chart.js Library -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- Custom Chart Logic -->
+<script src="{% static 'js/analytics_charts.js' %}"></script>
+
+<!-- Styles -->
+<style>
+.charts-container {
+    display: grid;
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.chart-wrapper {
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.chart-holder {
+    position: relative;
+    min-height: 300px;
+}
+
+.chart-loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #666;
+    font-style: italic;
+}
+
+.chart-error {
+    color: #d32f2f;
+    background: #ffebee;
+    padding: 1rem;
+    border-radius: 4px;
+    text-align: center;
+}
+</style>
+
+{% endblock %}

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Patient Records</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .navbar-custom {
+            background-color: #04C7E1;
+        }
+        h2 {
+            background-color: #04C7E1;
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        thead {
+            background-color: #04C7E1;
+            color: white;
+        }
+        .table-bordered {
+            border: 2px solid #04C7E1;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-dark navbar-custom">
+    <div class="container-fluid">
+        <span class="navbar-brand mb-0 h1">HDIMS</span>
+    </div>
+</nav>
+
+<!-- Content -->
+<div class="container mt-4">
+    <h2 class="mb-3 text-center">Patient Records</h2>
+
+    {% if patients %}
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped text-center">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Gender</th>
+                    <th>Blood Pressure</th>
+                    <th>Heart Rate</th>
+                    <th>Medical History</th>
+                    <th>Allergies</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for patient in patients %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ patient.name }}</td>
+                    <td>{{ patient.age }}</td>
+                    <td>{{ patient.gender }}</td>
+                    <td>{{ patient.blood_pressure }}</td>
+                    <td>{{ patient.heart_rate }}</td>
+                    <td>{{ patient.medical_history }}</td>
+                    <td>{{ patient.allergies }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p class="alert alert-warning text-center">No patient records found.</p>
+    {% endif %}
+</div>
+<a href="{% url 'index' %}" class="btn btn-primary">Back to home</a>
+</body>
+</html>

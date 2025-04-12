@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <meta charset="utf-8">
+    <title>Book an Appointment</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <!-- Favicon -->
+    <link rel="icon" href="{% static 'img/favicon.png' %}" type="image/x-icon">
+
+    <!-- Bootstrap & Styles -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    
+    <style>
+        .department-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .department-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .doctor-option {
+            padding: 8px 15px;
+        }
+        #datepicker {
+            z-index: 1000 !important;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <div class="container-fluid sticky-top bg-white shadow-sm">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light py-3">
+                <a href="{% url 'index' %}" class="navbar-brand">
+                    <h1 class="m-0 text-primary"><i class="bi bi-hospital me-2"></i>HDIMS</h1>
+                </a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Appointment Form -->
+    <div class="container py-5">
+        <h1 class="text-center text-primary mb-4">Book an Appointment</h1>
+        
+        <!-- Department Selection Cards -->
+        <div class="row mb-4 g-4">
+            {% for department in departments %}
+            <div class="col-md-4">
+                <div class="card department-card h-100" onclick="filterDoctors('{{ department.0 }}')">
+                    <div class="card-body text-center">
+                        <i class="bi bi-heart-pulse fs-1 text-primary mb-3"></i>
+                        <h5 class="card-title">{{ department.1 }}</h5>
+                        <p class="text-muted">{{ department.2 }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="card p-4 shadow-lg mx-auto" style="max-width: 600px;">
+            <form action="{% url 'book_appointment' %}" method="POST">
+                {% csrf_token %}
+                
+                <!-- Patient Info -->
+                <div class="mb-3">
+                    <label class="form-label"><i class="bi bi-person"></i> Patient Name</label>
+                    <input type="text" class="form-control" value="{{ user.get_full_name|default:user.username }}" readonly>
+                </div>
+
+                <!-- Doctor Selection with Filter -->
+                <div class="mb-3">
+                    <label class="form-label"><i class="bi bi-person-badge"></i> Select Doctor</label>
+                    <select name="doctor" id="doctor-select" class="form-select" required>
+                        <option value="">-- Select a Doctor --</option>
+                        {% for doctor in doctors %}
+                        <option value="{{ doctor.id }}" data-dept="{{ doctor.department }}">
+                            Dr. {{ doctor.name }} ({{ doctor.get_department_display }})
+                            {% if doctor.specialization %} - {{ doctor.specialization }}{% endif %}
+                        </option>
+                        {% empty %}
+        <option value="">No doctors available</option>
+                        {% endfor %}
+                    </select>
+                </div>   
+                <!-- Gender Selection -->
+<div class="mb-3">
+    <label class="form-label"><i class="bi bi-gender-ambiguous"></i> Gender</label>
+    <select name="gender" class="form-select" required>
+        <option value="">-- Select Gender --</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option>
+    </select>
+</div>
+
+
+                <!-- Date Picker with Validation -->
+                <div class="mb-3">
+                    <label class="form-label"><i class="bi bi-calendar"></i> Appointment Date</label>
+                    <input type="date" name="appointment_date" class="form-control" 
+                           min="{% now 'Y-m-d' %}" required id="datepicker">
+                </div>
+
+                <!-- Time Slots -->
+                <div class="mb-3">
+                    <label class="form-label"><i class="bi bi-clock"></i> Appointment Time</label>
+                    <select name="appointment_time" class="form-select" required>
+                        <option value="">-- Select Time --</option>
+                        {% for value, display in time_slots %}
+                        <option value="{{ value }}">{{ display }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- Symptoms -->
+                <div class="mb-3">
+                    <label class="form-label"><i class="bi bi-clipboard-pulse"></i> Symptoms</label>
+                    <textarea name="symptoms" class="form-control" rows="3" placeholder="Describe your symptoms in detail" required></textarea>
+                </div>
+
+                <!-- Allergies -->
+                <div class="mb-3">
+                    <label class="form-label"><i class="bi bi-exclamation-triangle"></i> Known Allergies</label>
+                    <textarea name="allergy" class="form-control" rows="2"
+                              placeholder="List any allergies or medications"></textarea>
+                </div>
+                
+                <!-- Reason -->
+                <div class="mb-3">
+                    <label class="form-label"><i class="bi bi-chat-square-text"></i> Reason for Visit</label>
+                    <textarea name="reason" class="form-control" rows="2" required
+                              placeholder="Briefly describe the reason for your appointment"></textarea>
+                </div>
+                
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn-primary w-100 py-2">
+                    <i class="bi bi-calendar-check"></i> Book Appointment
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3">
+        <div class="container">
+            <p class="mb-0">&copy; 2025 HDIMS. All Rights Reserved.</p>
+            <p class="small mb-0">
+                <i class="bi bi-telephone"></i> (123) 456-7890 | 
+                <i class="bi bi-envelope"></i> appointments@hdims.com
+            </p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Filter doctors by department
+        function filterDoctors(department) {
+            const doctorSelect = document.getElementById('doctor-select');
+            const options = doctorSelect.options;
+            
+            // First reset all options
+            for (let i = 0; i < options.length; i++) {
+                options[i].style.display = '';
+            }
+            
+            // If a department is selected, filter doctors
+            if (department) {
+                for (let i = 0; i < options.length; i++) {
+                    if (options[i].value && !options[i].dataset.dept.includes(department)) {
+                        options[i].style.display = 'none';
+                    }
+                }
+            }
+            
+            // Reset selection
+            doctorSelect.value = '';
+        }
+        
+        // Date validation
+        document.getElementById('datepicker').addEventListener('change', function() {
+            const selectedDate = new Date(this.value);
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            
+            if (selectedDate < today) {
+                alert('Please select a future date');
+                this.value = '';
+            }
+        });
+    </script>
+</body>
+</html>

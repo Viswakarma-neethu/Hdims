@@ -1,0 +1,44 @@
+{% extends 'hospital/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center">Patient Appointments</h2>
+    
+    <table class="table table-striped mt-3">
+        <thead class="table-light">
+            <tr>
+                <th>Patient Name</th>
+                <th>Age</th>
+                <th>Gender</th>
+                <th>Appointment Date</th>
+                <th>Time</th>
+                <th>View Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for appointment in appointments %}
+            <tr>
+                <td>{{ appointment.patient.name }}</td>
+                <td>{{ appointment.patient.age }}</td>
+                <td>{{ appointment.patient.gender }}</td>
+                <td>{{ appointment.date }}</td>
+                <td>{{ appointment.time }}</td>
+                <td>
+                    {% if appointment.patient and appointment.patient.id %}
+                        <a href="{% url 'edit_patient' appointment.patient.id %}" class="btn btn-info btn-sm">
+                            View & Edit
+                        </a>
+                    {% else %}
+                        <span class="text-muted">No Patient Data</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6" class="text-center">No appointments found</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

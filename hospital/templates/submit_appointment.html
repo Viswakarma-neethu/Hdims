@@ -1,0 +1,81 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>HDIMS - Appointment Confirmed</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <!-- Bootstrap & Main Stylesheet -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navbar Start -->
+    <div class="container-fluid sticky-top bg-white shadow-sm">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light py-3">
+                <a href="{% url 'index' %}" class="navbar-brand">
+                    <h1 class="m-0 text-primary"><i class="fa fa-clinic-medical me-2"></i>HDIMS</h1>
+                </a>
+            </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+    <!-- Confirmation Message -->
+    <div class="container text-center py-5">
+        <h1 class="text-success">Appointment Booked Successfully!</h1>
+        <p>Your appointment has been confirmed. Please find the details below:</p>
+        
+        <div class="card mx-auto p-4 shadow-sm" style="max-width: 500px;">
+            <h4 class="text-primary">Appointment Details</h4>
+            <p><strong>Patient Name:</strong> <span id="patientName"></span></p>
+            <p><strong>Doctor:</strong> <span id="doctorName"></span></p>
+            <p><strong>Department:</strong> <span id="department"></span></p>
+            <p><strong>Symptoms:</strong> <span id="symptoms"></span></p>
+            <p><strong>Allergies:</strong> <span id="allergies"></span></p>
+            <p><strong>Appointment Date & Time:</strong> <span id="appointmentTime"></span></p>
+            <p class="text-muted">Please arrive 10 minutes before your appointment time.</p>
+        </div>
+
+        <a href="index.html" class="btn btn-primary mt-4">Go to Dashboard</a>
+    </div>
+
+    <!-- Footer Start -->
+    <footer class="bg-dark text-white text-center py-3">
+        <p class="mb-0">&copy; 2025 HDIMS. All Rights Reserved.</p>
+    </footer>
+    <!-- Footer End -->
+
+    <!-- JavaScript to Retrieve and Display Appointment Data -->
+    <script>
+        // Retrieve appointment details from URL parameters
+        function getQueryParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                name: params.get("name"),
+                doctor: params.get("doctor"),
+                department: params.get("department"),
+                symptoms: params.get("symptoms"),
+                allergies: params.get("allergies"),
+                appointmentTime: params.get("appointment_time")
+            };
+        }
+
+        // Display appointment details on the page
+        window.onload = function () {
+            const details = getQueryParams();
+            document.getElementById("patientName").innerText = details.name || "N/A";
+            document.getElementById("doctorName").innerText = details.doctor || "N/A";
+            document.getElementById("department").innerText = details.department || "N/A";
+            document.getElementById("symptoms").innerText = details.symptoms || "None";
+            document.getElementById("allergies").innerText = details.allergies || "None";
+            document.getElementById("appointmentTime").innerText = details.appointmentTime || "Not Provided";
+        };
+    </script>
+</body>
+
+</html>

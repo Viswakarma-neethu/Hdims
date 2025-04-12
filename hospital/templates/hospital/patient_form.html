@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>HDIMS - Patient Registration</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <!-- Bootstrap & Main Stylesheet -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="container-fluid sticky-top bg-white shadow-sm">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light py-3">
+                <a href="{% url 'index' %}" class="navbar-brand">
+                    <h1 class="m-0 text-primary"><i class="fa fa-clinic-medical me-2"></i>HDIMS</h1>
+                </a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Health Data Collection Form -->
+    <div class="container mt-5">
+        <h2 class="text-center text-primary">Patient Health Data Form</h2>
+        <form method="POST" action="{% url 'add_patient' %}" class="mt-4">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label class="form-label">Full Name</label>
+                {{ form.name }}
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Age</label>
+                {{ form.age }}
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Gender</label>
+                <select name="gender" class="form-select" required>
+                    <option value="">Select Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Blood Pressure</label>
+                {{ form.blood_pressure }}
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Heart Rate</label>
+                {{ form.heart_rate }}
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Allergies</label>
+                {{ form.allergies }}
+            </div>
+
+            <!-- Medical History Checkbox -->
+            <div class="mb-3">
+                <label class="form-label">Medical History (Select all that apply)</label><br>
+                <input type="checkbox" name="medical_history" value="Diabetes"> Diabetes <br>
+                <input type="checkbox" name="medical_history" value="Hypertension"> Hypertension <br>
+                <input type="checkbox" name="medical_history" value="Asthma"> Asthma <br>
+                <input type="checkbox" name="medical_history" value="Heart Disease"> Heart Disease <br>
+                <input type="checkbox" name="medical_history" value="None"> None <br>
+            </div>
+
+            {% if messages %}
+                {% for message in messages %}
+                    <script>
+                        alert("{{ message }}");
+                    </script>
+                {% endfor %}
+            {% endif %}
+
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <p class="mb-0">&copy; 2025 HDIMS. All Rights Reserved.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

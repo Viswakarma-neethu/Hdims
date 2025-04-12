@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>HDIMS - Blog Detail</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Bootstrap & Main Stylesheet -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+</head>
+
+<body>
+    <!-- Navbar Start -->
+    <div class="container-fluid sticky-top bg-white shadow-sm">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light py-3">
+                <a href="index.html" class="navbar-brand">
+                    <h1 class="m-0 text-primary"><i class="fa fa-clinic-medical me-2"></i>HDIMS</h1>
+                </a>
+            </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+    <!-- Blog Detail Start -->
+    <div class="container py-5">
+        <h1 class="text-center">HDIMS - The Future of Health Data Management</h1>
+        <img class="img-fluid w-100 rounded mb-4" src="img/blog-2.jpg" alt="">
+        <p>HDIMS is transforming healthcare by providing seamless digital record-keeping, patient management, and secure data storage. Our innovative platform ensures that medical professionals and patients have real-time access to crucial health data.</p>
+    </div>
+
+    <!-- Comment Section Start -->
+    <div class="container py-5">
+        <h2 class="text-center">Leave a Comment</h2>
+        <form class="mx-auto" style="max-width: 600px;">
+            <div class="mb-3">
+                <label class="form-label">Your Name</label>
+                <input type="text" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Your Email</label>
+                <input type="email" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Comment</label>
+                <textarea class="form-control" rows="4" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Submit</button>
+        </form>
+    </div>
+    <!-- Comment Section End -->
+
+    <!-- Footer Start -->
+    <footer class="bg-dark text-white text-center py-3">
+        <p class="mb-0">&copy; 2025 HDIMS. All Rights Reserved.</p>
+    </footer>
+    <!-- Footer End -->
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

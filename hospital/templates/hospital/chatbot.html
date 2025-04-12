@@ -1,0 +1,43 @@
+{% extends 'hospital/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-primary text-center">AI Health Assistant</h2>
+    
+    <div class="chat-box" id="chatbox">
+        <div class="chat-message">Welcome! Ask me about health advice, appointments, or medications.</div>
+    </div>
+
+    <input type="text" id="userInput" class="form-control mt-3" placeholder="Type your message...">
+    <button onclick="sendMessage()" class="btn btn-primary mt-2">Send</button>
+</div>
+
+<script>
+    function sendMessage() {
+        let userInput = document.getElementById("userInput").value;
+        if (!userInput) return;
+
+        let chatbox = document.getElementById("chatbox");
+        chatbox.innerHTML += `<div class='chat-message user'>${userInput}</div>`;
+
+        fetch("/chatbot-response/", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ message: userInput })
+        })
+        .then(response => response.json())
+        .then(data => {
+            chatbox.innerHTML += `<div class='chat-message bot'>${data.response}</div>`;
+        });
+
+        document.getElementById("userInput").value = "";
+    }
+</script>
+
+<style>
+    .chat-box { max-height: 400px; overflow-y: auto; border: 1px solid #ddd; padding: 10px; }
+    .chat-message { margin: 5px 0; padding: 8px; border-radius: 5px; }
+    .chat-message.user { background: #007bff; color: white; text-align: right; }
+    .chat-message.bot { background: #f8f9fa; }
+</style>
+{% endblock %}

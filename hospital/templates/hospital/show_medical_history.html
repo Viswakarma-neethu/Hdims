@@ -1,0 +1,22 @@
+<h2>Your Medical History</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Disease</th>
+            <th>Description</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for history in histories %}
+        <tr>
+            <td>{{ history.disease }}</td>
+            <td>{{ history.description }}</td>
+            <td>{{ history.date }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="3">No Medical History Found</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
